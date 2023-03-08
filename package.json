@@ -1,8 +1,8 @@
 {
-  "name": "messages",
+  "name": "chatbox",
   "version": "1.0.0",
-  "description": "Messages an implementation using NestJS, MongoDB, GraphQL based on Messenger DB structure.",
-  "repository": "git@github.com:yoosuf/messages.git",
+  "description": "ChatBox an implementation using NestJS, MongoDB, GraphQL based on Messenger DB structure.",
+  "repository": "git@github.com:yoosuf/ChatBox.git",
   "author": "Yoosuf <mayoosuf@gmail.com>",
   "license": "MIT",
   "private": true,
