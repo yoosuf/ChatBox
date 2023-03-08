@@ -1,0 +1,22 @@
+{
+  "name": "chatbox",
+  "version": "1.0.0",
+  "description": "ChatBox an implementation using NestJS, MongoDB, GraphQL based on Messenger DB structure.",
+  "repository": "git@github.com:yoosuf/ChatBox.git",
+  "author": "Yoosuf <mayoosuf@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev:client": "yarn workspace @messages/client dev",
+    "dev:server": "yarn workspace @messages/server start:dev",
+    "start": "concurrently --kill-others-on-fail \"yarn dev:server\"  \"yarn dev:client\""
+  },
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "workspaces": {
+    "packages": [
+      "apps/*"
+    ]
+  }
+}

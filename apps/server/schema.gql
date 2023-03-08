@@ -1,0 +1,113 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Auth {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type User {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Conversation {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Message {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Contact {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  auth(id: Int!): Auth!
+  users: [User!]!
+  user(id: Int!): User!
+  conversations: [Conversation!]!
+  conversation(id: Int!): Conversation!
+  messages: [Message!]!
+  message(id: Int!): Message!
+  contacts: [Contact!]!
+  contact(id: Int!): Contact!
+}
+
+type Mutation {
+  createAuth(createAuthInput: CreateAuthInput!): Auth!
+  updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
+  removeAuth(id: Int!): Auth!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+  createConversation(createConversationInput: CreateConversationInput!): Conversation!
+  updateConversation(updateConversationInput: UpdateConversationInput!): Conversation!
+  removeConversation(id: Int!): Conversation!
+  createMessage(createMessageInput: CreateMessageInput!): Message!
+  updateMessage(updateMessageInput: UpdateMessageInput!): Message!
+  removeMessage(id: Int!): Message!
+  createContact(createContactInput: CreateContactInput!): Contact!
+  updateContact(updateContactInput: UpdateContactInput!): Contact!
+  removeContact(id: Int!): Contact!
+}
+
+input CreateAuthInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateAuthInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateConversationInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateConversationInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateMessageInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateMessageInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateContactInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateContactInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
