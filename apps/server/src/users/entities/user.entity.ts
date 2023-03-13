@@ -1,12 +1,13 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Prop, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema } from 'mongoose';
+import { Document, Schema, Types } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
 @ObjectType()
 export class User extends Document {
-  @Field(() => String, { description: 'User ID' })
-  _id: String;
+  @Prop({ type: Types.ObjectId })
+  @Field(() => Types.ObjectId, { description: 'User ID' })
+  _id: Schema.Types.ObjectId
 
   @Field(() => String, { description: 'User First Name' })
   firstName: String;
@@ -48,12 +49,15 @@ export const UserSchema = SchemaFactory.createForClass(User);
 @ObjectType()
 export class PasswordReset extends Document {
 
-  @Prop({ type: Schema.Types.ObjectId, ref: 'User' })
+  @Field(() => Types.ObjectId, { description: 'Password Reset user Object' })
+  @Prop({ type: Types.ObjectId, ref: 'User' })
   user: String;
 
+  @Field(() => String, { description: 'Password Reset resetToken' })
   @Prop({ default: null })
   resetToken: String;
 
+  @Field(() => Date, { description: 'Password Reset status' })
   @Prop({ default: Date.now })
   createdAt: Date;
 }

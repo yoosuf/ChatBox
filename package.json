@@ -7,8 +7,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev:client": "yarn workspace @messages/client dev",
-    "dev:server": "yarn workspace @messages/server start:dev",
+    "dev:client": "yarn workspace @chatbox/client dev",
+    "dev:server": "yarn workspace @chatbox/server start:dev",
     "start": "concurrently --kill-others-on-fail \"yarn dev:server\"  \"yarn dev:client\""
   },
   "dependencies": {
