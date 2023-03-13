@@ -1,7 +1,9 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 @ObjectType()
-export class Contact {
+export class Contact extends Document {
   @Field(() => String, { description: 'Contact Id' })
   _id: String;
 
@@ -17,3 +19,5 @@ export class Contact {
   @Field(() => String, { description: 'Contact Phone' })
   phone: String;
 }
+
+export const ContactSchema = SchemaFactory.createForClass(Contact);

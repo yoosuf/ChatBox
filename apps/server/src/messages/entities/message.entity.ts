@@ -1,7 +1,9 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 @ObjectType()
-export class Message {
+export class Message extends Document {
   @Field(() => String, { description: 'Message Id' })
   _id: String;
 
@@ -20,3 +22,5 @@ export class Message {
   @Field(() => [String], { description: 'Conversation Deleted By' })
   deletedBy: [String];
 }
+
+export const MessageSchema = SchemaFactory.createForClass(Message);
