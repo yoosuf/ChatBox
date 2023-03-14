@@ -7,16 +7,29 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev:client": "yarn workspace @messages/client dev",
-    "dev:server": "yarn workspace @messages/server start:dev",
+    "dev:client": "yarn workspace @chatbox/client dev",
+    "dev:server": "yarn workspace @chatbox/server start:dev",
     "start": "concurrently --kill-others-on-fail \"yarn dev:server\"  \"yarn dev:client\""
   },
   "dependencies": {
-    "concurrently": "^7.6.0"
+    "@nestjs/graphql": "^11.0.0",
+    "apollo-server-express": "^3.12.0",
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^7.6.0",
+    "graphql": "^16.6.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.1",
+    "nodemailer": "^6.9.1",
+    "type-graphql": "^1.1.1"
   },
   "workspaces": {
     "packages": [
       "apps/*"
     ]
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/nodemailer": "^6.4.7"
   }
 }
