@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ChatMessage from './ChatMessage';
@@ -9,6 +9,8 @@ import RecipientList from '../Recipient/RecipientList';
 import RecipientDetail from '../Recipient/RecipientDetail';
 import { User } from '../../types/user';
 import { Message } from '../../types/conversation';
+import { users } from '../../mock/users';
+import { initialMessages } from '../../mock/conversations';
 
 const ChatContainer = styled.div`
   display: flex;
@@ -29,9 +31,9 @@ const ChatContent = styled.div`
 const MessagesContainer = styled.div`
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
+  padding: 20px;
 
   @media (max-width: 768px) {
     padding: 10px;
@@ -64,92 +66,7 @@ const DateHeading = styled.div`
   }
 `;
 
-
-const users: User[] = [
-  { id: 1, name: 'John Doe', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 2, name: 'Jane Smith', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 3, name: 'Alice Johnson', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 4, name: 'Bob Brown', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 5, name: 'Charlie Davis', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 6, name: 'David Evans', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 7, name: 'Eve Foster', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 8, name: 'Frank Green', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 9, name: 'Grace Harris', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 10, name: 'Henry Irving', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 11, name: 'Isabel Johnson', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 12, name: 'Jack King', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 13, name: 'Karen Lee', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 14, name: 'Larry Moore', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 15, name: 'Mia Nelson', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 16, name: 'Nina Owens', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 17, name: 'Oscar Perez', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 18, name: 'Paul Quinn', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 19, name: 'Quinn Rogers', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 20, name: 'Rachel Scott', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 21, name: 'Steve Thomas', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-  { id: 22, name: 'Tina Underwood', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
-];
-
 const currentUser = users[0];
-
-const initialMessages: { [key: number]: Message[] } = {
-  1: [
-    { id: 1, text: 'Hello, John!', timestamp: new Date('2023-06-01T10:00:00'), user: users[1] },
-    { id: 2, text: 'Hi! How are you?', timestamp: new Date('2023-06-01T10:05:00'), user: users[0] },
-    { id: 3, text: 'I am good, thank you! How about you?', timestamp: new Date('2023-06-01T10:10:00'), user: users[1] },
-    { id: 4, text: 'I am fine too!', timestamp: new Date('2023-06-01T10:15:00'), user: users[0] },
-    { id: 5, text: 'What are you up to today?', timestamp: new Date('2023-06-02T10:20:00'), user: users[1] },
-    { id: 6, text: 'Just working on some projects. You?', timestamp: new Date('2023-06-02T10:25:00'), user: users[0] },
-    { id: 1, text: 'Hello, John!', timestamp: new Date('2023-06-01T10:00:00'), user: users[1] },
-    { id: 2, text: 'Hi! How are you?', timestamp: new Date('2023-06-01T10:05:00'), user: users[0] },
-    { id: 3, text: 'I am good, thank you! How about you?', timestamp: new Date('2023-06-01T10:10:00'), user: users[1] },
-    { id: 4, text: 'I am fine too!', timestamp: new Date('2023-06-01T10:15:00'), user: users[0] },
-    { id: 5, text: 'What are you up to today?', timestamp: new Date('2023-06-02T10:20:00'), user: users[1] },
-    { id: 6, text: 'Just working on some projects. You?', timestamp: new Date('2023-06-02T10:25:00'), user: users[0] },
-    { id: 1, text: 'Hello, John!', timestamp: new Date('2023-06-01T10:00:00'), user: users[1] },
-    { id: 2, text: 'Hi! How are you?', timestamp: new Date('2023-06-01T10:05:00'), user: users[0] },
-    { id: 3, text: 'I am good, thank you! How about you?', timestamp: new Date('2023-06-01T10:10:00'), user: users[1] },
-    { id: 4, text: 'I am fine too!', timestamp: new Date('2023-06-01T10:15:00'), user: users[0] },
-    { id: 5, text: 'What are you up to today?', timestamp: new Date('2023-06-02T10:20:00'), user: users[1] },
-    { id: 6, text: 'Just working on some projects. You?', timestamp: new Date('2023-06-02T10:25:00'), user: users[0] },
-    { id: 1, text: 'Hello, John!', timestamp: new Date('2023-06-01T10:00:00'), user: users[1] },
-    { id: 2, text: 'Hi! How are you?', timestamp: new Date('2023-06-01T10:05:00'), user: users[0] },
-    { id: 3, text: 'I am good, thank you! How about you?', timestamp: new Date('2023-06-01T10:10:00'), user: users[1] },
-    { id: 4, text: 'I am fine too!', timestamp: new Date('2023-06-01T10:15:00'), user: users[0] },
-    { id: 5, text: 'What are you up to today?', timestamp: new Date('2023-06-02T10:20:00'), user: users[1] },
-    { id: 6, text: 'Just working on some projects. You?', timestamp: new Date('2023-06-02T10:25:00'), user: users[0] },
-    { id: 1, text: 'Hello, John!', timestamp: new Date('2023-06-01T10:00:00'), user: users[1] },
-    { id: 2, text: 'Hi! How are you?', timestamp: new Date('2023-06-01T10:05:00'), user: users[0] },
-    { id: 3, text: 'I am good, thank you! How about you?', timestamp: new Date('2023-06-01T10:10:00'), user: users[1] },
-    { id: 4, text: 'I am fine too!', timestamp: new Date('2023-06-01T10:15:00'), user: users[0] },
-    { id: 5, text: 'What are you up to today?', timestamp: new Date('2023-06-02T10:20:00'), user: users[1] },
-    { id: 6, text: 'Just working on some projects. You?', timestamp: new Date('2023-06-02T10:25:00'), user: users[0] },
-  ],
-  2: [
-    { id: 1, text: 'Hello, Jane!', timestamp: new Date('2023-06-02T09:00:00'), user: users[0] },
-    { id: 2, text: 'Hi! I am good. How about you?', timestamp: new Date('2023-06-02T09:05:00'), user: users[1] },
-    { id: 3, text: 'Doing great, thanks!', timestamp: new Date('2023-06-02T09:10:00'), user: users[0] },
-    { id: 4, text: 'Good to hear!', timestamp: new Date('2023-06-02T09:15:00'), user: users[1] },
-  ],
-  3: [
-    { id: 1, text: 'Hey Alice, long time no see!', timestamp: new Date('2023-06-03T14:00:00'), user: users[0] },
-    { id: 2, text: 'Indeed, it has been a while!', timestamp: new Date('2023-06-03T14:05:00'), user: users[2] },
-    { id: 3, text: 'How have you been?', timestamp: new Date('2023-06-03T14:10:00'), user: users[0] },
-    { id: 4, text: 'I have been great, just busy with work.', timestamp: new Date('2023-06-03T14:15:00'), user: users[2] },
-  ],
-  4: [
-    { id: 1, text: 'Hey Bob!', timestamp: new Date('2023-06-04T16:00:00'), user: users[0] },
-    { id: 2, text: 'Hello! How are things?', timestamp: new Date('2023-06-04T16:05:00'), user: users[3] },
-    { id: 3, text: 'Things are good, just staying busy.', timestamp: new Date('2023-06-04T16:10:00'), user: users[0] },
-    { id: 4, text: 'Same here. Let’s catch up soon.', timestamp: new Date('2023-06-04T16:15:00'), user: users[3] },
-  ],
-  5: [
-    { id: 1, text: 'Hi Charlie!', timestamp: new Date('2023-06-05T12:00:00'), user: users[0] },
-    { id: 2, text: 'Hey! What’s up?', timestamp: new Date('2023-06-05T12:05:00'), user: users[4] },
-    { id: 3, text: 'Not much, just working. You?', timestamp: new Date('2023-06-05T12:10:00'), user: users[0] },
-    { id: 4, text: 'Same here. Let’s grab coffee sometime.', timestamp: new Date('2023-06-05T12:15:00'), user: users[4] },
-  ],
-};
 
 const Chat: React.FC = () => {
   const { userId } = useParams<{ userId?: string }>();
@@ -157,6 +74,8 @@ const Chat: React.FC = () => {
   const [messages, setMessages] = useState<{ [key: number]: Message[] }>(initialMessages);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showRecipientDetail, setShowRecipientDetail] = useState<boolean>(false);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (userId) {
@@ -166,6 +85,12 @@ const Chat: React.FC = () => {
       setSelectedUser(users[0]);
     }
   }, [userId]);
+
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const addMessage = (text: string) => {
     if (selectedUser) {
@@ -191,9 +116,7 @@ const Chat: React.FC = () => {
     return groups;
   }, {});
 
-  const toggleRecipientDetail = () => {
-    setShowRecipientDetail(prevState => !prevState);
-  };
+  const sortedDates = Object.keys(groupedMessages).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
 
   return (
     <ChatContainer role="main" aria-labelledby="chat-header">
@@ -206,11 +129,11 @@ const Chat: React.FC = () => {
         {selectedUser && (
           <ChatHeader
             user={selectedUser}
-            onSettingsClick={toggleRecipientDetail}
+            onSettingsClick={() => setShowRecipientDetail(prev => !prev)}
           />
         )}
-        <MessagesContainer role="log" aria-live="polite">
-          {Object.keys(groupedMessages).map(date => (
+        <MessagesContainer ref={messagesContainerRef} role="log" aria-live="polite">
+          {sortedDates.reverse().map(date => (
             <div key={date}>
               <DateHeading role="heading" aria-level={2}>{date}</DateHeading>
               {groupedMessages[date].map(message => (
@@ -218,6 +141,7 @@ const Chat: React.FC = () => {
               ))}
             </div>
           ))}
+          <div ref={messagesEndRef} />
         </MessagesContainer>
         {selectedUser && <ChatInput onSend={addMessage} />}
       </ChatContent>
@@ -225,7 +149,7 @@ const Chat: React.FC = () => {
         {showRecipientDetail && selectedUser && (
           <RecipientDetail
             user={selectedUser}
-            onClose={toggleRecipientDetail}
+            onClose={() => setShowRecipientDetail(false)}
           />
         )}
       </AnimatePresence>

@@ -1,0 +1,26 @@
+import { User } from "../types/user";
+
+export const users: User[] = [
+    { id: 1, name: 'John Doe', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 2, name: 'Jane Smith', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 3, name: 'Alice Johnson', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 4, name: 'Bob Brown', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 5, name: 'Charlie Davis', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 6, name: 'David Evans', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 7, name: 'Eve Foster', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 8, name: 'Frank Green', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 9, name: 'Grace Harris', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 10, name: 'Henry Irving', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 11, name: 'Isabel Johnson', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 12, name: 'Jack King', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 13, name: 'Karen Lee', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 14, name: 'Larry Moore', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 15, name: 'Mia Nelson', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 16, name: 'Nina Owens', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 17, name: 'Oscar Perez', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 18, name: 'Paul Quinn', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 19, name: 'Quinn Rogers', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 20, name: 'Rachel Scott', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 21, name: 'Steve Thomas', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+    { id: 22, name: 'Tina Underwood', avatar: 'https://source.unsplash.com/random/40x40/?portrait' },
+  ];

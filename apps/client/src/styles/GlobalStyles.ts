@@ -19,6 +19,9 @@ const GlobalStyles = createGlobalStyle`
     --color-hover: #007aff; /* Hover color in light mode */
     --color-button: #f2f2f7; /* Button color in light mode */
     --color-border: #c7c7cc; /* Border color in light mode */
+    --color-background-chat-bubbble-sent: #007aff; /* chat  bubbble color */
+    --color-background-chat-bubbble-received: #3B3B3D; /* chat bubbble color */
+
   }
 
   @media (prefers-color-scheme: dark) {
@@ -29,6 +32,8 @@ const GlobalStyles = createGlobalStyle`
       --color-hover: #0a84ff; /* Hover color in dark mode */
       --color-button: #2c2c2e; /* Button color in dark mode */
       --color-border: #3a3a3c; /* Border color in dark mode */
+      --color-background-chat-bubbble-sent: #007aff; /* chat  bubbble color */
+      --color-background-chat-bubbble-received: #3B3B3D; /* chat bubbble color */
     }
   }
 
@@ -39,15 +44,19 @@ const GlobalStyles = createGlobalStyle`
     --color-hover: #0a84ff; /* Hover color in dark mode */
     --color-button: #2c2c2e; /* Button color in dark mode */
     --color-border: #3a3a3c; /* Border color in dark mode */
+    --color-background-chat-bubbble-sent: #007aff; /* chat  bubbble color */
+    --color-background-chat-bubbble-received: #3B3B3D; /* chat bubbble color */
   }
 
   :root.light {
     /* Light Theme Colors */
     --color-text: #000000; /* Text color in light mode */
     --color-background: #ffffff; /* Background color in light mode */
-    --color-hover: #007aff; /* Hover color in light mode */
+    --color-hover: #B0D6FF; /* Hover color in light mode */
     --color-button: #f2f2f7; /* Button color in light mode */
     --color-border: #c7c7cc; /* Border color in light mode */
+    --color-background-chat-bubbble-sent: #B0D6FF; /* chat  bubbble color */
+    --color-background-chat-bubbble-received: #ffffff; /* chat bubbble color */
   }
 
   body {

@@ -20,7 +20,7 @@ const MessageBubble = styled.div<{ $isOwnMessage: boolean }>`
   max-width: 60%;
   padding: 10px;
   border-radius: 10px;
-  background-color: ${(props) => (props.$isOwnMessage ? '#dcf8c6' : '#fff')};
+  background-color: ${(props) => (props.$isOwnMessage ? 'var(--color-background-chat-bubbble-sent)' : 'var(--color-background-chat-bubbble-received)')};
   border: 1px solid ${(props) => (props.$isOwnMessage ? '#dcf8c6' : '#ddd')};
   word-wrap: break-word;
   position: relative;

@@ -35,7 +35,7 @@ const UserName = styled.div`
 const SettingsButton = styled.button`
   background: none;
   border: none;
-  color: white;
+  color: var(--color-text-secondary);
   font-size: 1.2em;
   cursor: pointer;
 
