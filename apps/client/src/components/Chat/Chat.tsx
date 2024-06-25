@@ -5,12 +5,12 @@ import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import ChatHeader from './ChatHeader';
 import { AnimatePresence } from 'framer-motion';
-import RecipientList from '../Recipient/RecipientList';
-import RecipientDetail from '../Recipient/RecipientDetail';
-import { User } from '../../types/user';
-import { Message } from '../../types/conversation';
-import { users } from '../../mock/users';
-import { initialMessages } from '../../mock/conversations';
+import ConversationsList from './ConversationsList';
+import { Conversation } from '../../types/conversation';
+import { conversationsData } from '../../mock/conversations';
+import { userData } from '../../mock/users';
+import { Message } from '../../types/message';
+import ConversationDetail from './ConversationDetail';
 
 const ChatContainer = styled.div`
   display: flex;
@@ -26,6 +26,8 @@ const ChatContent = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+    flex-shrink: 1;
+
 `;
 
 const MessagesContainer = styled.div`
@@ -66,23 +68,22 @@ const DateHeading = styled.div`
   }
 `;
 
-const currentUser = users[0];
-
 const Chat: React.FC = () => {
   const { userId } = useParams<{ userId?: string }>();
   const navigate = useNavigate();
-  const [messages, setMessages] = useState<{ [key: number]: Message[] }>(initialMessages);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [showRecipientDetail, setShowRecipientDetail] = useState<boolean>(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (userId) {
-      const user = users.find(u => u.id === parseInt(userId, 10));
-      setSelectedUser(user || null);
-    } else if (users.length > 0) {
-      setSelectedUser(users[0]);
+      const conversation = conversationsData.find(conversation =>
+        conversation.participants.some(user => user.id === parseInt(userId, 10))
+      );
+      setSelectedConversation(conversation || null);
+    } else if (conversationsData.length > 0) {
+      setSelectedConversation(conversationsData[0]);
     }
   }, [userId]);
 
@@ -90,24 +91,30 @@ const Chat: React.FC = () => {
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [selectedConversation]);
 
   const addMessage = (text: string) => {
-    if (selectedUser) {
-      const newMessage: Message = {
-        id: (messages[selectedUser.id]?.length || 0) + 1,
+    if (selectedConversation) {
+      const newMessage = {
+        id: selectedConversation.messages.length + 1,
         text,
         timestamp: new Date(),
-        user: currentUser,
+        user: userData[0],
+        conversationId: selectedConversation.id,
       };
-      setMessages(prevMessages => ({
-        ...prevMessages,
-        [selectedUser.id]: [...(prevMessages[selectedUser.id] || []), newMessage]
-      }));
+      setSelectedConversation(prevConversation => {
+        if (prevConversation) {
+          return {
+            ...prevConversation,
+            messages: [...prevConversation.messages, newMessage],
+          };
+        }
+        return prevConversation;
+      });
     }
   };
 
-  const groupedMessages = (selectedUser && messages[selectedUser.id] ? messages[selectedUser.id] : []).reduce((groups: { [key: string]: Message[] }, message: Message) => {
+  const groupedMessages = (selectedConversation ? selectedConversation.messages : []).reduce((groups: { [key: string]: Message[] }, message: Message) => {
     const date = message.timestamp.toDateString();
     if (!groups[date]) {
       groups[date] = [];
@@ -120,15 +127,15 @@ const Chat: React.FC = () => {
 
   return (
     <ChatContainer role="main" aria-labelledby="chat-header">
-      <RecipientList
-        users={users}
-        onSelect={setSelectedUser}
-        selectedUser={selectedUser}
+      <ConversationsList
+        conversations={conversationsData}
+        onSelect={setSelectedConversation}
+        selectedConversation={selectedConversation}
       />
       <ChatContent>
-        {selectedUser && (
+        {selectedConversation && (
           <ChatHeader
-            user={selectedUser}
+          conversation={selectedConversation}
             onSettingsClick={() => setShowRecipientDetail(prev => !prev)}
           />
         )}
@@ -137,18 +144,18 @@ const Chat: React.FC = () => {
             <div key={date}>
               <DateHeading role="heading" aria-level={2}>{date}</DateHeading>
               {groupedMessages[date].map(message => (
-                <ChatMessage key={message.id} message={message} currentUser={currentUser} />
+                <ChatMessage key={message.id} message={message} currentUser={userData[0]} />
               ))}
             </div>
           ))}
           <div ref={messagesEndRef} />
         </MessagesContainer>
-        {selectedUser && <ChatInput onSend={addMessage} />}
+        {selectedConversation && <ChatInput onSend={addMessage} />}
       </ChatContent>
       <AnimatePresence>
-        {showRecipientDetail && selectedUser && (
-          <RecipientDetail
-            user={selectedUser}
+        {showRecipientDetail && selectedConversation && (
+          <ConversationDetail
+          conversation={selectedConversation}
             onClose={() => setShowRecipientDetail(false)}
           />
         )}

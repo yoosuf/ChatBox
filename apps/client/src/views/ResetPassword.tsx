@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import InputField from '../components/CrewUI/Form/InputField/InputFIeld';
 
 const Container = styled.div`
   display: flex;
@@ -40,6 +41,11 @@ const Link = styled.a`
   margin: 10px 0;
   color: #007bff;
   cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: #0056b3;
+  }
 `;
 
 const ResetPassword: React.FC = () => {
@@ -54,16 +60,21 @@ const ResetPassword: React.FC = () => {
 
   return (
     <Container>
-      <Form onSubmit={handleReset}>
-        <h2>Reset Password</h2>
-        <Input
+      <Form onSubmit={handleReset} aria-labelledby="reset-password-form-title">
+        <h2 id="reset-password-form-title">Reset Password</h2>
+        <InputField
+          label="Email"
           type="email"
-          placeholder="Email"
+          id="email"
+          placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          ariaRequired={true}
+          hiddenLabel={false}
+          tabIndex={0}
         />
         <Button type="submit">Reset Password</Button>
-        <Link onClick={() => navigate('/login')}>Login</Link>
+        <Link role="button" onClick={() => navigate('/login')} tabIndex={0}>Login</Link>
       </Form>
     </Container>
   );

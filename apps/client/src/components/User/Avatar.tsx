@@ -42,14 +42,22 @@ const AvatarContainer = styled.div<{ $bgColor: string; size: 'xs' | 'sm' | 'md' 
   ${(props) => sizeStyles[props.size]}
 
   @media (max-width: 768px) {
+    margin-right: 0px;
     ${(props) => props.size === 'md' && sizeStyles.sm}
     ${(props) => props.size === 'lg' && sizeStyles.md}
   }
 `;
 
 const Avatar: React.FC<AvatarProps> = ({ name, size = 'md' }) => {
-  const initials = name.split(' ').map(n => n[0]).join('');
-  const bgColor = stringToColor(name);
+  let initials = 'N/A';
+  let bgColor = '#000'; // default color
+
+  try {
+    initials = name.split(' ').map(n => n[0]).join('');
+    bgColor = stringToColor(name);
+  } catch (error) {
+    console.error('Error generating initials or color for Avatar:', error);
+  }
 
   return <AvatarContainer $bgColor={bgColor} size={size}>{initials}</AvatarContainer>;
 };

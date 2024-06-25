@@ -17,7 +17,7 @@ const createRootElement = (id: string) => {
 };
 
 // Create or get the root element
-const rootElement = createRootElement('root');
+const rootElement = createRootElement('react-root');
 
 // Use React's createRoot method to render the application
 const root = createRoot(rootElement);

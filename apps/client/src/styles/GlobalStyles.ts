@@ -21,6 +21,9 @@ const GlobalStyles = createGlobalStyle`
     --color-border: #c7c7cc; /* Border color in light mode */
     --color-background-chat-bubbble-sent: #007aff; /* chat  bubbble color */
     --color-background-chat-bubbble-received: #3B3B3D; /* chat bubbble color */
+    
+    --color-input-background: #333333;
+    --color-input-text: #f5f5f5;
 
   }
 
@@ -34,6 +37,9 @@ const GlobalStyles = createGlobalStyle`
       --color-border: #3a3a3c; /* Border color in dark mode */
       --color-background-chat-bubbble-sent: #007aff; /* chat  bubbble color */
       --color-background-chat-bubbble-received: #3B3B3D; /* chat bubbble color */
+
+      --color-input-background: #333333;
+      --color-input-text: #f5f5f5;
     }
   }
 
@@ -46,6 +52,9 @@ const GlobalStyles = createGlobalStyle`
     --color-border: #3a3a3c; /* Border color in dark mode */
     --color-background-chat-bubbble-sent: #007aff; /* chat  bubbble color */
     --color-background-chat-bubbble-received: #3B3B3D; /* chat bubbble color */
+
+    --color-input-background: #333333;
+    --color-input-text: #f5f5f5;
   }
 
   :root.light {
@@ -57,6 +66,9 @@ const GlobalStyles = createGlobalStyle`
     --color-border: #c7c7cc; /* Border color in light mode */
     --color-background-chat-bubbble-sent: #B0D6FF; /* chat  bubbble color */
     --color-background-chat-bubbble-received: #ffffff; /* chat bubbble color */
+
+    --color-input-background: #f5f5f5;
+    --color-input-text: #000000;
   }
 
   body {

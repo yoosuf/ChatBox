@@ -1,53 +1,124 @@
-import { Message } from "../types/conversation";
-import { users } from "./users";
+import { Conversation, ConversationType } from "../types/conversation";
+import { contactsData } from "./users";
+import { messagesArray } from "./messages";
 
-export const initialMessages: { [key: number]: Message[] } = {
-    1: [
-      { id: 1, text: 'Hello, John!', timestamp: new Date('2023-06-01T10:00:00'), user: users[1] },
-      { id: 2, text: 'Hi! How are you?', timestamp: new Date('2023-06-01T10:05:00'), user: users[0] },
-      { id: 3, text: 'I am good, thank you! How about you?', timestamp: new Date('2023-06-01T10:10:00'), user: users[1] },
-      { id: 4, text: 'I am fine too!', timestamp: new Date('2023-06-01T10:15:00'), user: users[0] },
-      { id: 5, text: 'What are you up to today?', timestamp: new Date('2023-06-02T10:20:00'), user: users[1] },
-      { id: 6, text: 'Just working on some projects. You?', timestamp: new Date('2023-06-02T10:25:00'), user: users[0] },
-      { id: 7, text: 'Hello, John!', timestamp: new Date('2023-06-01T10:00:00'), user: users[1] },
-      { id: 8, text: 'Hi! How are you?', timestamp: new Date('2023-06-01T10:05:00'), user: users[0] },
-      { id: 9, text: 'I am good, thank you! How about you?', timestamp: new Date('2023-06-01T10:10:00'), user: users[1] },
-      { id: 10, text: 'I am fine too!', timestamp: new Date('2023-06-01T10:15:00'), user: users[0] },
-      { id: 11, text: 'What are you up to today?', timestamp: new Date('2023-06-02T10:20:00'), user: users[1] },
-      { id: 12, text: 'Just working on some projects. You?', timestamp: new Date('2023-06-02T10:25:00'), user: users[0] },
-      { id: 13, text: 'Hello, John!', timestamp: new Date('2023-06-01T10:00:00'), user: users[1] },
-      { id: 14, text: 'Hi! How are you?', timestamp: new Date('2023-06-01T10:05:00'), user: users[0] },
-      { id: 15, text: 'I am good, thank you! How about you?', timestamp: new Date('2023-06-01T10:10:00'), user: users[1] },
-      { id: 16, text: 'I am fine too!', timestamp: new Date('2023-06-01T10:15:00'), user: users[0] },
-      { id: 17, text: 'What are you up to today?', timestamp: new Date('2023-06-02T10:20:00'), user: users[1] },
-      { id: 18, text: 'Just working on some projects. You?', timestamp: new Date('2023-06-02T10:25:00'), user: users[0] },
-      { id: 19, text: 'Hello, John!', timestamp: new Date('2023-06-01T10:00:00'), user: users[1] },
-      { id: 20, text: 'Hi! How are you?', timestamp: new Date('2023-06-01T10:05:00'), user: users[0] },
-      { id: 21, text: 'I am good, thank you! How about you?', timestamp: new Date('2023-06-01T10:10:00'), user: users[1] },
+export const conversationsData: Conversation[] = [
+  {
+    id: 1,
+    title: "Project Discussion",
+    participants: [
+      { ...contactsData[0], role: "Admin" },
+      { ...contactsData[1], role: "Member" },
+      { ...contactsData[2], role: "Member" },
     ],
-    2: [
-      { id: 1, text: 'Hello, Jane!', timestamp: new Date('2023-06-02T09:00:00'), user: users[0] },
-      { id: 2, text: 'Hi! I am good. How about you?', timestamp: new Date('2023-06-02T09:05:00'), user: users[1] },
-      { id: 3, text: 'Doing great, thanks!', timestamp: new Date('2023-06-02T09:10:00'), user: users[0] },
-      { id: 4, text: 'Good to hear!', timestamp: new Date('2023-06-02T09:15:00'), user: users[1] },
+    messages: messagesArray.filter(message => message.conversationId === 1),
+    type: ConversationType.Group,
+    createdAt:new Date("2024-06-22T09:00:00Z")
+
+  },
+  {
+    id: 2,
+    title: "Weekend Plans",
+    participants: [
+      { ...contactsData[6], role: "Admin" },
+      { ...contactsData[7], role: "Member" },
     ],
-    3: [
-      { id: 1, text: 'Hey Alice, long time no see!', timestamp: new Date('2023-06-03T14:00:00'), user: users[0] },
-      { id: 2, text: 'Indeed, it has been a while!', timestamp: new Date('2023-06-03T14:05:00'), user: users[2] },
-      { id: 3, text: 'How have you been?', timestamp: new Date('2023-06-03T14:10:00'), user: users[0] },
-      { id: 4, text: 'I have been great, just busy with work.', timestamp: new Date('2023-06-03T14:15:00'), user: users[2] },
+    messages: messagesArray.filter(message => message.conversationId === 2),
+    type: ConversationType.Direct,
+    createdAt:new Date("2024-06-22T09:00:00Z")
+  },
+  {
+    id: 3,
+    title: "Book Club",
+    participants: [
+      { ...contactsData[0], role: "Admin" },
+      { ...contactsData[1], role: "Member" },
+      { ...contactsData[2], role: "Member" },
+      { ...contactsData[3], role: "Member" },
     ],
-    4: [
-      { id: 1, text: 'Hey Bob!', timestamp: new Date('2023-06-04T16:00:00'), user: users[0] },
-      { id: 2, text: 'Hello! How are things?', timestamp: new Date('2023-06-04T16:05:00'), user: users[3] },
-      { id: 3, text: 'Things are good, just staying busy.', timestamp: new Date('2023-06-04T16:10:00'), user: users[0] },
-      { id: 4, text: 'Same here. Let’s catch up soon.', timestamp: new Date('2023-06-04T16:15:00'), user: users[3] },
+    messages: messagesArray.filter(message => message.conversationId === 3),
+    type: ConversationType.Group,
+    createdAt:new Date("2024-06-22T09:00:00Z")
+  },
+  {
+    id: 4,
+    title: "Catch Up",
+    participants: [
+      { ...contactsData[0], role: "Admin" },
+      { ...contactsData[2], role: "Member" },
     ],
-    5: [
-      { id: 1, text: 'Hi Charlie!', timestamp: new Date('2023-06-05T12:00:00'), user: users[0] },
-      { id: 2, text: 'Hey! What’s up?', timestamp: new Date('2023-06-05T12:05:00'), user: users[4] },
-      { id: 3, text: 'Not much, just working. You?', timestamp: new Date('2023-06-05T12:10:00'), user: users[0] },
-      { id: 4, text: 'Same here. Let’s grab coffee sometime.', timestamp: new Date('2023-06-05T12:15:00'), user: users[4] },
+    messages: messagesArray.filter(message => message.conversationId === 4),
+    type: ConversationType.Direct,
+    createdAt:new Date("2024-06-22T09:00:00Z")
+  },
+  {
+    id: 5,
+    title: "Work Updates",
+    participants: [
+      { ...contactsData[0], role: "Admin" },
+      { ...contactsData[3], role: "Member" },
     ],
-  };
-  
+    messages: messagesArray.filter(message => message.conversationId === 5),
+    type: ConversationType.Direct,
+    createdAt:new Date("2024-06-22T09:00:00Z")
+  },
+  {
+    id: 6,
+    title: "Coffee Chat",
+    participants: [
+      { ...contactsData[0], role: "Admin" },
+      { ...contactsData[4], role: "Member" },
+    ],
+    messages: messagesArray.filter(message => message.conversationId === 6),
+    type: ConversationType.Direct,
+    createdAt:new Date("2024-06-22T09:00:00Z")
+  },
+  {
+    id: 7,
+    title: "Daily Standup",
+    participants: [
+      { ...contactsData[0], role: "Admin" },
+      { ...contactsData[1], role: "Member" },
+      { ...contactsData[2], role: "Member" },
+      { ...contactsData[3], role: "Member" },
+    ],
+    messages: messagesArray.filter(message => message.conversationId === 7),
+    type: ConversationType.Group,
+    createdAt:new Date("2024-06-22T09:00:00Z")
+  },
+  {
+    id: 8,
+    title: "Weekend Trip",
+    participants: [
+      { ...contactsData[4], role: "Admin" },
+      { ...contactsData[5], role: "Member" },
+      { ...contactsData[6], role: "Member" },
+    ],
+    messages: messagesArray.filter(message => message.conversationId === 8),
+    type: ConversationType.Group,
+    createdAt:new Date("2024-06-22T09:00:00Z")
+  },
+  {
+    id: 9,
+    title: "Gym Buddies",
+    participants: [
+      { ...contactsData[1], role: "Admin" },
+      { ...contactsData[7], role: "Member" },
+    ],
+    messages: messagesArray.filter(message => message.conversationId === 9),
+    type: ConversationType.Direct,
+    createdAt:new Date("2024-06-22T09:00:00Z")
+  },
+  {
+    id: 10,
+    title: "Gaming Night",
+    participants: [
+      { ...contactsData[8], role: "Admin" },
+      { ...contactsData[9], role: "Member" },
+      { ...contactsData[2], role: "Member" },
+    ],
+    messages: messagesArray.filter(message => message.conversationId === 10),
+    type: ConversationType.Group,
+    createdAt:new Date("2024-06-22T09:00:00Z")
+  }
+];

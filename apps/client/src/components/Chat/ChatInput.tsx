@@ -5,6 +5,7 @@ const InputContainer = styled.div`
   display: flex;
   padding: 20px;
   background-color: var(--color-background);
+  color: var(--color-input-text);
   border-top: 1px solid var(--color-border);
 `;
 
@@ -12,6 +13,10 @@ const Input = styled.input`
   flex: 1;
   padding: 10px;
   border: 1px solid var(--color-border);
+  background-color: var(--color-input-background);
+  color: var(--color-input-text);
+
+
   border-radius: 5px;
   margin-right: 10px;
 `;

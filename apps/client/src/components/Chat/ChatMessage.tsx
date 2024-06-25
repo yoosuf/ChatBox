@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Message } from '../../types/conversation';
 import { User } from '../../types/user';
+import { Message } from '../../types/message';
 
 
 
