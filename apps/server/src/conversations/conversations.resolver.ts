@@ -6,10 +6,12 @@ import { UpdateConversationInput } from './dto/update-conversation.input';
 
 @Resolver(() => Conversation)
 export class ConversationsResolver {
-  constructor(private readonly conversationsService: ConversationsService) { }
+  constructor(private readonly conversationsService: ConversationsService) {}
 
   @Mutation(() => Conversation)
-  createConversation(@Args('input') createConversationInput: CreateConversationInput) {
+  createConversation(
+    @Args('input') createConversationInput: CreateConversationInput,
+  ) {
     return this.conversationsService.create(createConversationInput);
   }
 
@@ -24,8 +26,13 @@ export class ConversationsResolver {
   }
 
   @Mutation(() => Conversation)
-  updateConversation(@Args('input') updateConversationInput: UpdateConversationInput) {
-    return this.conversationsService.update(updateConversationInput.id, updateConversationInput);
+  updateConversation(
+    @Args('input') updateConversationInput: UpdateConversationInput,
+  ) {
+    return this.conversationsService.update(
+      updateConversationInput.id,
+      updateConversationInput,
+    );
   }
 
   @Mutation(() => Conversation)

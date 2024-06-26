@@ -6,7 +6,7 @@ import { UpdateMessageInput } from './dto/update-message.input';
 
 @Resolver(() => Message)
 export class MessagesResolver {
-  constructor(private readonly messagesService: MessagesService) { }
+  constructor(private readonly messagesService: MessagesService) {}
 
   @Mutation(() => Message)
   createMessage(@Args('input') createMessageInput: CreateMessageInput) {
@@ -25,7 +25,10 @@ export class MessagesResolver {
 
   @Mutation(() => Message)
   updateMessage(@Args('input') updateMessageInput: UpdateMessageInput) {
-    return this.messagesService.update(updateMessageInput.id, updateMessageInput);
+    return this.messagesService.update(
+      updateMessageInput.id,
+      updateMessageInput,
+    );
   }
 
   @Mutation(() => Message)

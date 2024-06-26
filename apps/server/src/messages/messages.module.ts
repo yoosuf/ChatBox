@@ -6,10 +6,8 @@ import { Message, MessageSchema } from './entities/message.entity';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: Message.name, schema: MessageSchema },
-    ]),
+    MongooseModule.forFeature([{ name: Message.name, schema: MessageSchema }]),
   ],
-  providers: [MessagesResolver, MessagesService]
+  providers: [MessagesResolver, MessagesService],
 })
-export class MessagesModule { }
+export class MessagesModule {}
