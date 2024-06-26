@@ -2,7 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConversationsService } from './conversations.service';
 import { ConversationsResolver } from './conversations.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Conversation, ConversationSchema } from './entities/conversation.entity';
+import {
+  Conversation,
+  ConversationSchema,
+} from './entities/conversation.entity';
 
 @Module({
   imports: [
@@ -10,6 +13,6 @@ import { Conversation, ConversationSchema } from './entities/conversation.entity
       { name: Conversation.name, schema: ConversationSchema },
     ]),
   ],
-  providers: [ConversationsResolver, ConversationsService]
+  providers: [ConversationsResolver, ConversationsService],
 })
-export class ConversationsModule { }
+export class ConversationsModule {}

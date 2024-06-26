@@ -9,7 +9,7 @@ type Auth {
 
 type User {
   """User Id"""
-  _id: String!
+  _id: ID!
 
   """User First Name"""
   firstName: String!
@@ -20,22 +20,22 @@ type User {
   """User Email"""
   email: String!
 
+  """User Password"""
+  password: String!
+
   """User Phone"""
   phone: String!
 
   """User Active status"""
-  isActive: Boolean!
+  isVerified: Boolean!
 }
 
 type Conversation {
   """Conversation Id"""
-  _id: String!
+  _id: ID!
 
   """Conversation Title"""
   title: String!
-
-  """Conversation Creator ID"""
-  creatorId: String!
 
   """Conversation Creator ID"""
   participants: [String!]!
@@ -46,7 +46,7 @@ type Conversation {
 
 type Message {
   """Message Id"""
-  _id: String!
+  _id: ID!
 
   """Message Content Type"""
   contentType: String!
@@ -66,7 +66,7 @@ type Message {
 
 type Contact {
   """Contact Id"""
-  _id: String!
+  _id: ID!
 
   """Contact First Name"""
   firstName: String!

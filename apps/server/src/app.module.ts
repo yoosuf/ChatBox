@@ -10,7 +10,6 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ConversationsModule } from './conversations/conversations.module';
 import { MessagesModule } from './messages/messages.module';
-import { ContactsModule } from './contacts/contacts.module';
 
 @Module({
   imports: [
@@ -26,11 +25,14 @@ import { ContactsModule } from './contacts/contacts.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      debug: true,
       playground: true,
     }),
-    AuthModule, UsersModule, ConversationsModule, MessagesModule, ContactsModule],
+    AuthModule,
+    UsersModule,
+    ConversationsModule,
+    MessagesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

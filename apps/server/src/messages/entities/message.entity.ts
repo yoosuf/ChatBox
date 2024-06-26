@@ -1,26 +1,83 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Schema, Types } from 'mongoose';
+
+export enum MessageType {
+  Text = 'text',
+  Video = 'video',
+  Audio = 'audio',
+  Link = 'link',
+  Image = 'image', // Assuming you might also handle images
+  Document = 'document', // For PDFs, Word documents, etc.
+  Location = 'location', // If you want to send geographical locations
+  Contact = 'contact', // If you want to send contact information
+}
+// Define the sub-schema for deletion records
+const DeletionRecordSchema = new Schema({
+  userId: { type: Types.ObjectId, ref: 'User' },
+  deletedAt: { type: Date },
+});
+
+@ObjectType()
+class DeletionRecord {
+  @Field(() => ID, { description: 'ID of the user who deleted the message' })
+  userId: Types.ObjectId;
+
+  @Field(() => Date, { description: 'Date when the message was deleted' })
+  deletedAt: Date;
+}
+
+// Define the sub-schema for seen status records
+const statusSchema = new Schema({
+  userId: { type: Types.ObjectId, ref: 'User' },
+  deliveredAt: { type: Date, default: Date.now },
+  seenAt: { type: Date, default: Date.now },
+});
+
+@ObjectType()
+class status {
+  @Field(() => ID, { description: 'ID of the user who saw the message' })
+  userId: Types.ObjectId;
+
+  @Field(() => Date, { description: 'Date when the message was delivered' })
+  deliveredAt: Date;
+
+  @Field(() => Date, { description: 'Date when the message was seen' })
+  seenAt: Date;
+}
 
 @ObjectType()
 export class Message extends Document {
-  @Field(() => String, { description: 'Message Id' })
-  _id: String;
+  @Prop({ type: Types.ObjectId })
+  @Field(() => ID, { description: 'Message Id' })
+  _id: string;
 
-  @Field(() => String, { description: 'Message Content Type' })
-  contentType: String;
+  @Prop({ type: Types.ObjectId, ref: 'Conversation' })
+  @Field(() => ID, { description: 'Conversation ID this message belongs to' })
+  conversationId: Types.ObjectId;
 
-  @Field(() => String, { description: 'Message Content' })
-  content: String;
+  @Prop({ type: Types.ObjectId, ref: 'User' })
+  @Field(() => ID, { description: 'User ID this message belongs to' })
+  senderId: Types.ObjectId;
 
-  @Field(() => String, { description: 'Message Sender ID' })
-  senderId: String;
+  @Prop({ enum: MessageType })
+  @Field(() => MessageType, { description: 'Message Content Type' })
+  type: MessageType;
 
-  @Field(() => [String], { description: 'Message Seen Staus' })
-  seenStaus: [String];
+  @Field(() => String, { description: 'Message text' })
+  text: string;
 
-  @Field(() => [String], { description: 'Conversation Deleted By' })
-  deletedBy: [String];
+  @Prop({ type: [statusSchema], default: [] })
+  @Field(() => [status], { description: 'Seen statuses of the message' })
+  status: status[];
+
+  @Prop({ type: [DeletionRecordSchema], default: [] })
+  @Field(() => [DeletionRecord], { description: 'Records of deletions' })
+  deleted: DeletionRecord[];
+
+  @Prop({ type: Date })
+  @Field(() => Date, { description: 'Creation Date' })
+  createdAt: Date;
 }
 
 export const MessageSchema = SchemaFactory.createForClass(Message);

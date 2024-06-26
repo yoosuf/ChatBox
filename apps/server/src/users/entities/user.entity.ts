@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema, Types } from 'mongoose';
 import * as bcrypt from 'bcrypt';
@@ -6,31 +6,31 @@ import * as bcrypt from 'bcrypt';
 @ObjectType()
 export class User extends Document {
   @Prop({ type: Types.ObjectId })
-  @Field(() => Types.ObjectId, { description: 'User ID' })
-  _id: Schema.Types.ObjectId
+  @Field(() => ID, { description: 'User Id' })
+  _id: Schema.Types.ObjectId;
 
   @Field(() => String, { description: 'User First Name' })
-  firstName: String;
+  firstName: string;
 
   @Field(() => String, { description: 'User Last Name' })
-  lastName: String;
+  lastName: string;
 
   @Prop({ required: true })
   @Field(() => String, { description: 'User Email' })
-  email: String;
+  email: string;
 
   @Prop({ required: true })
   @Field(() => String, { description: 'User Password' })
-  password: String;
+  password: string;
 
   @Field(() => String, { description: 'User Phone' })
-  phone: String;
+  phone: string;
 
   @Field(() => Boolean, { description: 'User Active status' })
-  isVerified: Boolean;
+  isVerified: boolean;
 
   @Prop({ default: null })
-  verificationToken: String;
+  verificationToken: string;
 
   @Prop({ default: null })
   verifiedAt: Date;
@@ -44,18 +44,15 @@ export class User extends Document {
 
 export const UserSchema = SchemaFactory.createForClass(User);
 
-
-
 @ObjectType()
 export class PasswordReset extends Document {
-
   @Field(() => Types.ObjectId, { description: 'Password Reset user Object' })
   @Prop({ type: Types.ObjectId, ref: 'User' })
-  user: String;
+  user: string;
 
   @Field(() => String, { description: 'Password Reset resetToken' })
   @Prop({ default: null })
-  resetToken: String;
+  resetToken: string;
 
   @Field(() => Date, { description: 'Password Reset status' })
   @Prop({ default: Date.now })
@@ -63,8 +60,6 @@ export class PasswordReset extends Document {
 }
 
 export const PasswordResetSchema = SchemaFactory.createForClass(PasswordReset);
-
-
 
 UserSchema.pre<User>('save', async function (next) {
   if (!this.isModified('password')) {
@@ -75,3 +70,18 @@ UserSchema.pre<User>('save', async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
+
+@ObjectType()
+export class Contact extends User {
+  @Field(() => String, { description: 'Contact Group', nullable: true })
+  @Prop()
+  group?: string;
+
+  @Field(() => String, { description: 'User First Name' })
+  firstName: string;
+
+  @Field(() => String, { description: 'User Last Name' })
+  lastName: string;
+}
+
+export const ContactSchema = SchemaFactory.createForClass(Contact);
